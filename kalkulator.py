@@ -25,7 +25,7 @@ class Window(QMainWindow):
         self.setGeometry(150,150,500,500)
         self.okno = QWidget(self)
         self.setCentralWidget(self.okno)
-        self.mainLayout = QHBoxLayout()
+        self.mainLayout = QVBoxLayout()
         # self.mainLayout.setGeometry(100,100,300,300)
         self.gridLayout = QGridLayout()
         self.okno.setLayout(self.mainLayout)
@@ -39,21 +39,51 @@ class Window(QMainWindow):
         checkbox.move(10,30)
         checkbox.stateChanged.connect(self.enlarge)
         self.mainLayout.addWidget(checkbox, alignment=Qt.AlignCenter)
-        print(self.style().objectName())
+        # print(self.style().objectName())
         self.StyleChoice = QLabel("Windows Vista",self)
         combobox = QComboBox(self)
+        combobox.addItem("windowsvista")
         combobox.addItem("windowsxp")
         combobox.addItem("Windows")
         combobox.addItem("Fusion")
-        combobox.addItem("windowsvista")
 
-        self.mainLayout.addWidget(self.StyleChoice, alignment = Qt.AlignTop)
-        self.mainLayout.addWidget(combobox, alignment = Qt.AlignTop)
+        self.mainLayout.addWidget(self.StyleChoice, alignment = Qt.AlignLeft)
+        self.mainLayout.addWidget(combobox, alignment = Qt.AlignLeft)
         combobox.activated[str].connect(self.stylechoice)
+
+
+        self.color = QLabel("Choose color:",self)
+        self.mainLayout.addWidget(self.color, alignment=Qt.AlignRight)
+        comboboxcolor = QComboBox(self)
+        comboboxcolor.addItem("grey")
+        comboboxcolor.addItem("red")
+        comboboxcolor.addItem("green")
+        comboboxcolor.addItem("blue")
+        comboboxcolor.addItem("yellow")
+        self.mainLayout.addWidget(comboboxcolor, alignment = Qt.AlignRight)
+        comboboxcolor.activated[str].connect(self.colorchoice)
 
         self.show()
 
         self.initUI()
+
+    def colorchoice(self,text):
+        self.btn0.setStyleSheet("background-color:"+text)
+        self.btn1.setStyleSheet("background-color:"+text)
+        self.btn2.setStyleSheet("background-color:"+text)
+        self.btn3.setStyleSheet("background-color:"+text)
+        self.btn4.setStyleSheet("background-color:"+text)
+        self.btn5.setStyleSheet("background-color:"+text)
+        self.btn6.setStyleSheet("background-color:"+text)
+        self.btn7.setStyleSheet("background-color:"+text)
+        self.btn8.setStyleSheet("background-color:"+text)
+        self.btn9.setStyleSheet("background-color:"+text)
+        self.btnp.setStyleSheet("background-color:"+text)
+        self.btnm.setStyleSheet("background-color:"+text)
+        self.btnmn.setStyleSheet("background-color:"+text)
+        self.btndz.setStyleSheet("background-color:"+text)
+        self.btneq.setStyleSheet("background-color:"+text)
+        self.btnC.setStyleSheet("background-color:"+text)
 
     def stylechoice(self,text):
         self.StyleChoice.setText(text)
@@ -84,6 +114,8 @@ class Window(QMainWindow):
         enlargeButtonsAction.setShortcut('Ctrl+B')
         enlargeButtonsAction.setStatusTip('Enlarge Buttons')
         enlargeButtonsAction.triggered.connect(self.enlargeButtons)
+
+
 
         # self.statusBar()
 
@@ -141,8 +173,8 @@ class Window(QMainWindow):
         self.resultlabel = QLabel("0",self)
         self.resultlabel.setFont(QtGui.QFont('SansSerif', 15))
         self.resultlabel.resize(self.resultlabel.minimumSizeHint())
-        self.resultlabel.setText("wynik")
-        self.gridLayout.addWidget(self.resultlabel, 0,1)
+        # self.resultlabel.setText("wynik")
+        self.mainLayout.addWidget(self.resultlabel)
 
         self.btn0 = QPushButton('0',self)
         self.btn0.clicked.connect(self.on_click0)
