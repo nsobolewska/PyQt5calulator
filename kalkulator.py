@@ -7,11 +7,13 @@ from PyQt5.QtCore import pyqtSlot, Qt
 class Window(QMainWindow):
 
     enlargeCount = 0
+    enlargeButtonsCount = 0
     licznik = 0
     liczba = 0
     numbers = []
     flagNew = 0
     numbers.append(0)
+    textL = ""
 
     # if flag == 1 then addition
     # if flag == 2 then substract
@@ -20,10 +22,11 @@ class Window(QMainWindow):
     flag = 0
     def __init__(self):
         super(Window,self).__init__()
-        self.setGeometry(100,100,500,500)
+        self.setGeometry(150,150,500,500)
         self.okno = QWidget(self)
         self.setCentralWidget(self.okno)
         self.mainLayout = QHBoxLayout()
+        # self.mainLayout.setGeometry(100,100,300,300)
         self.gridLayout = QGridLayout()
         self.okno.setLayout(self.mainLayout)
         self.setWindowTitle("Kalkulator")
@@ -39,14 +42,12 @@ class Window(QMainWindow):
         print(self.style().objectName())
         self.StyleChoice = QLabel("Windows Vista",self)
         combobox = QComboBox(self)
-        combobox.addItem("motif")
+        combobox.addItem("windowsxp")
         combobox.addItem("Windows")
-        combobox.addItem("cde")
-        combobox.addItem("Plastique")
-        combobox.addItem("Cleanlooks")
+        combobox.addItem("Fusion")
         combobox.addItem("windowsvista")
 
-        # self.mainLayout.addWidget(self.StyleChoice, aligment = Qt.AlignTop)
+        self.mainLayout.addWidget(self.StyleChoice, alignment = Qt.AlignTop)
         self.mainLayout.addWidget(combobox, alignment = Qt.AlignTop)
         combobox.activated[str].connect(self.stylechoice)
 
@@ -60,10 +61,10 @@ class Window(QMainWindow):
 
     def enlarge(self,state):
         if self.enlargeCount == 0:
-            self.setGeometry(50,50,1000,1000)
+            self.setGeometry(150,150,800,800)
             self.enlargeCount = 1
         else:
-            self.setGeometry(50,50,500,500)
+            self.setGeometry(150,150,300,300)
             self.enlargeCount = 0
 
 
@@ -79,158 +80,273 @@ class Window(QMainWindow):
         enlargeAction.setStatusTip('Enlarge window')
         enlargeAction.triggered.connect(self.enlarge)
 
+        enlargeButtonsAction = QAction('&EnlargeButtons', self)
+        enlargeButtonsAction.setShortcut('Ctrl+B')
+        enlargeButtonsAction.setStatusTip('Enlarge Buttons')
+        enlargeButtonsAction.triggered.connect(self.enlargeButtons)
+
         # self.statusBar()
 
         menubar = self.menuBar()
         fileMenu = menubar.addMenu('&File')
+        fileMenu.addAction(enlargeButtonsAction)
         fileMenu.addAction(enlargeAction)
         fileMenu.addAction(exitAction)
 
         self.show()
 
+    def enlargeButtons(self):
+        if self.enlargeButtonsCount == 0:
+            self.btn0.setFixedSize(80,80)
+            self.btn1.setFixedSize(80,80)
+            self.btn2.setFixedSize(80,80)
+            self.btn3.setFixedSize(80,80)
+            self.btn4.setFixedSize(80,80)
+            self.btn5.setFixedSize(80,80)
+            self.btn6.setFixedSize(80,80)
+            self.btn7.setFixedSize(80,80)
+            self.btn8.setFixedSize(80,80)
+            self.btn9.setFixedSize(80,80)
+            self.btnp.setFixedSize(80,80)
+            self.btnm.setFixedSize(80,80)
+            self.btnmn.setFixedSize(80,80)
+            self.btndz.setFixedSize(80,80)
+            self.btneq.setFixedSize(80,80)
+            self.enlargeButtonsCount = 1
+            self.setGeometry(150, 150, 600, 600)
+        else:
+            self.btn0.setFixedSize(40, 40)
+            self.btn1.setFixedSize(40, 40)
+            self.btn2.setFixedSize(40, 40)
+            self.btn3.setFixedSize(40, 40)
+            self.btn4.setFixedSize(40, 40)
+            self.btn5.setFixedSize(40, 40)
+            self.btn6.setFixedSize(40, 40)
+            self.btn7.setFixedSize(40, 40)
+            self.btn8.setFixedSize(40, 40)
+            self.btn9.setFixedSize(40, 40)
+            self.btnp.setFixedSize(40, 40)
+            self.btnm.setFixedSize(40, 40)
+            self.btnmn.setFixedSize(40, 40)
+            self.btndz.setFixedSize(40, 40)
+            self.btneq.setFixedSize(40, 40)
+            self.enlargeButtonsCount = 0
+            self.setGeometry(150, 150, 300, 300)
+        # self.show()
+
 
 # buttons
     def home(self):
 
-        btn0 = QPushButton('0',self)
-        btn0.clicked.connect(self.on_click0)
-        btn0.resize(btn0.minimumSizeHint())
-        # btn0.move(100, 50)
-        self.gridLayout.addWidget(btn0,0,0)
+        self.resultlabel = QLabel("0",self)
+        self.resultlabel.setFont(QtGui.QFont('SansSerif', 15))
+        self.resultlabel.resize(self.resultlabel.minimumSizeHint())
+        self.resultlabel.setText("wynik")
+        self.gridLayout.addWidget(self.resultlabel, 0,1)
 
-        btn1 = QPushButton('1',self)
-        btn1.clicked.connect(self.on_click1)
-        btn1.resize(btn1.minimumSizeHint())
-        self.gridLayout.addWidget(btn1,0,1)
+        self.btn0 = QPushButton('0',self)
+        self.btn0.clicked.connect(self.on_click0)
+        self.btn0.resize(self.btn0.minimumSizeHint())
+        # btn0.move(100, 50)
+        self.gridLayout.addWidget(self.btn0,1,0)
+
+        self.btn1 = QPushButton('1',self)
+        self.btn1.clicked.connect(self.on_click1)
+        self.btn1.resize(self.btn1.minimumSizeHint())
+        self.gridLayout.addWidget(self.btn1,1,1)
         # btn1.move(100,100)
 
-        btn2 = QPushButton('2',self)
-        btn2.clicked.connect(self.on_click2)
-        btn2.resize(btn2.minimumSizeHint())
-        self.gridLayout.addWidget(btn2,0,2)
+        self.btn2 = QPushButton('2',self)
+        self.btn2.clicked.connect(self.on_click2)
+        self.btn2.resize(self.btn2.minimumSizeHint())
+        self.gridLayout.addWidget(self.btn2,1,2)
         # btn2.move(100,150)
 
-        btn3 = QPushButton('3',self)
-        btn3.clicked.connect(self.on_click3)
-        btn3.resize(btn3.minimumSizeHint())
-        self.gridLayout.addWidget(btn3,1,0)
+        self.btn3 = QPushButton('3',self)
+        self.btn3.clicked.connect(self.on_click3)
+        self.btn3.resize(self.btn3.minimumSizeHint())
+        self.gridLayout.addWidget(self.btn3,2,0)
         # btn3.move(100,200)
 
-        btn4 = QPushButton('4',self)
-        btn4.clicked.connect(self.on_click4)
-        btn4.resize(btn3.minimumSizeHint())
-        self.gridLayout.addWidget(btn4,1,1)
+        self.btn4 = QPushButton('4',self)
+        self.btn4.clicked.connect(self.on_click4)
+        self.btn4.resize(self.btn4.minimumSizeHint())
+        self.gridLayout.addWidget(self.btn4,2,1)
         # btn4.move(100, 250)
 
-        btn5 = QPushButton('5',self)
-        btn5.clicked.connect(self.on_click5)
-        btn5.resize(btn3.minimumSizeHint())
-        self.gridLayout.addWidget(btn5,1,2)
+        self.btn5 = QPushButton('5',self)
+        self.btn5.clicked.connect(self.on_click5)
+        self.btn5.resize(self.btn5.minimumSizeHint())
+        self.gridLayout.addWidget(self.btn5,2,2)
         # btn5.move(100, 300)
 
-        btn6 = QPushButton('6',self)
-        btn6.clicked.connect(self.on_click6)
-        btn6.resize(btn3.minimumSizeHint())
-        self.gridLayout.addWidget(btn6,2,0)
+        self.btn6 = QPushButton('6',self)
+        self.btn6.clicked.connect(self.on_click6)
+        self.btn6.resize(self.btn6.minimumSizeHint())
+        self.gridLayout.addWidget(self.btn6,3,0)
         # btn6.move(100, 350)
 
-        btn7 = QPushButton('7',self)
-        btn7.clicked.connect(self.on_click7)
-        btn7.resize(btn3.minimumSizeHint())
-        self.gridLayout.addWidget(btn7,2,1)
+        self.btn7 = QPushButton('7',self)
+        self.btn7.clicked.connect(self.on_click7)
+        self.btn7.resize(self.btn7.minimumSizeHint())
+        self.gridLayout.addWidget(self.btn7,3,1)
         # btn7.move(100, 400)
 
-        btn8 = QPushButton('8',self)
-        btn8.clicked.connect(self.on_click8)
-        btn8.resize(btn3.minimumSizeHint())
-        self.gridLayout.addWidget(btn8,2,2)
+        self.btn8 = QPushButton('8',self)
+        self.btn8.clicked.connect(self.on_click8)
+        self.btn8.resize(self.btn8.minimumSizeHint())
+        self.gridLayout.addWidget(self.btn8,3,2)
         # btn8.move(100, 450)
 
-        btn9 = QPushButton('9',self)
-        btn9.clicked.connect(self.on_click9)
-        btn9.resize(btn3.minimumSizeHint())
-        self.gridLayout.addWidget(btn9,3,0)
+        self.btn9 = QPushButton('9',self)
+        self.btn9.clicked.connect(self.on_click9)
+        self.btn9.resize(self.btn9.minimumSizeHint())
+        self.gridLayout.addWidget(self.btn9,4,0)
         # btn9.move(100, 500)
 
-        btnp = QPushButton('+',self)
-        btnp.clicked.connect(self.on_clickp)
-        btnp.resize(btnp.minimumSizeHint())
-        self.gridLayout.addWidget(btnp,0,3)
+        self.btnp = QPushButton('+',self)
+        self.btnp.clicked.connect(self.on_clickp)
+        self.btnp.resize(self.btnp.minimumSizeHint())
+        self.gridLayout.addWidget(self.btnp,1,3)
         # btnp.move(200, 500)
 
-        btnm = QPushButton('-',self)
-        btnm.clicked.connect(self.on_clickm)
-        btnm.resize(btnm.minimumSizeHint())
-        self.gridLayout.addWidget(btnm,1,3)
+        self.btnm = QPushButton('-',self)
+        self.btnm.clicked.connect(self.on_clickm)
+        self.btnm.resize(self.btnm.minimumSizeHint())
+        self.gridLayout.addWidget(self.btnm,2,3)
         # btnm.move(200, 450)
 
-        btnmn = QPushButton('*',self)
-        btnmn.clicked.connect(self.on_clickmn)
-        btnmn.resize(btnmn.minimumSizeHint())
-        self.gridLayout.addWidget(btnmn,2,3)
+        self.btnmn = QPushButton('*',self)
+        self.btnmn.clicked.connect(self.on_clickmn)
+        self.btnmn.resize(self.btnmn.minimumSizeHint())
+        self.gridLayout.addWidget(self.btnmn,3,3)
         # btnmn.move(200, 400)
 
-        btndz = QPushButton('/',self)
-        btndz.clicked.connect(self.on_clickdz)
-        btndz.resize(btndz.minimumSizeHint())
-        self.gridLayout.addWidget(btndz,3,3)
+        self.btndz = QPushButton('/',self)
+        self.btndz.clicked.connect(self.on_clickdz)
+        self.btndz.resize(self.btndz.minimumSizeHint())
+        self.gridLayout.addWidget(self.btndz,4,3)
         # btndz.move(200, 350)
 
-        btneq = QPushButton('=',self)
-        btneq.clicked.connect(self.on_clickeq)
-        btneq.resize(btndz.minimumSizeHint())
-        self.gridLayout.addWidget(btneq,3,2)
+        self.btneq = QPushButton('=',self)
+        self.btneq.clicked.connect(self.on_clickeq)
+        self.btneq.resize(self.btneq.minimumSizeHint())
+        self.gridLayout.addWidget(self.btneq,4,2)
+
+        self.btnC = QPushButton('C', self)
+        self.btnC.clicked.connect(self.on_clickC)
+        self.btnC.resize(self.btnC.minimumSizeHint())
+        self.gridLayout.addWidget(self.btnC, 4, 1)
+
         # btneq.move(200, 300)
+        self.btn0.setFixedSize(40, 40)
+        self.btn1.setFixedSize(40, 40)
+        self.btn2.setFixedSize(40, 40)
+        self.btn3.setFixedSize(40, 40)
+        self.btn4.setFixedSize(40, 40)
+        self.btn5.setFixedSize(40, 40)
+        self.btn6.setFixedSize(40, 40)
+        self.btn7.setFixedSize(40, 40)
+        self.btn8.setFixedSize(40, 40)
+        self.btn9.setFixedSize(40, 40)
+        self.btnp.setFixedSize(40, 40)
+        self.btnm.setFixedSize(40, 40)
+        self.btnmn.setFixedSize(40, 40)
+        self.btndz.setFixedSize(40, 40)
+        self.btneq.setFixedSize(40, 40)
+        self.btnC.setFixedSize(40, 40)
+
 
 
     def on_click0(self):
         self.liczba = self.liczba*10 + 0
         print(self.liczba)
+
+        self.textL = self.textL+"0"
+        if self.licznik == 0:
+            self.textL = (str)(self.liczba)
+        self.resultlabel.setText(self.textL)
         # self.licznik = self.licznik + 1
 
     def on_click1(self):
         self.liczba = self.liczba * 10 + 1
         print(self.liczba)
+        self.textL = self.textL+"1"
+        if self.licznik == 0:
+            self.textL = (str)(self.liczba)
+        self.resultlabel.setText(self.textL)
         # self.licznik = self.licznik + 1
 
     def on_click2(self):
         self.liczba = self.liczba * 10 + 2
         print(self.liczba)
+        self.textL = self.textL+"2"
+        if self.licznik == 0:
+            self.textL = (str)(self.liczba)
+        self.resultlabel.setText(self.textL)
 
     def on_click3(self):
 
         self.liczba = self.liczba * 10 + 3
         print(self.liczba)
+        self.textL = self.textL+"3"
+        if self.licznik == 0:
+            self.textL = (str)(self.liczba)
+        self.resultlabel.setText(self.textL)
         # self.licznik = self.licznik + 1
 
     def on_click4(self):
         self.liczba = self.liczba * 10 + 4
         print(self.liczba)
+        self.textL = self.textL+"4"
+        if self.licznik == 0:
+            self.textL = (str)(self.liczba)
+        self.resultlabel.setText(self.textL)
         # self.licznik = self.licznik + 1
 
     def on_click5(self):
         self.liczba = self.liczba * 10 + 5
         print(self.liczba)
+        self.textL = self.textL+"5"
+        if self.licznik == 0:
+            self.textL = (str)(self.liczba)
+        self.resultlabel.setText(self.textL)
         # self.licznik = self.licznik + 1
 
     def on_click6(self):
         self.liczba = self.liczba * 10 + 6
         print(self.liczba)
+        self.textL = self.textL+"6"
+        if self.licznik == 0:
+            self.textL = (str)(self.liczba)
+        self.resultlabel.setText(self.textL)
         # self.licznik = self.licznik + 1
 
     def on_click7(self):
         self.liczba = self.liczba * 10 + 7
         print(self.liczba)
+        self.textL = self.textL+"7"
+        if self.licznik == 0:
+            self.textL = (str)(self.liczba)
+        self.resultlabel.setText(self.textL)
         # self.licznik = self.licznik + 1
 
     def on_click8(self):
         self.liczba = self.liczba * 10 + 8
         print(self.liczba)
+        self.textL = self.textL+"8"
+        if self.licznik == 0:
+            self.textL = (str)(self.liczba)
+        self.resultlabel.setText(self.textL)
         # self.licznik = self.licznik + 1
 
     def on_click9(self):
         self.liczba = self.liczba * 10 + 9
         print(self.liczba)
+        self.textL = self.textL+"9"
+        if self.licznik == 0:
+            self.textL = (str)(self.liczba)
+        self.resultlabel.setText(self.textL)
         # self.licznik = self.licznik + 1
 
     def on_clickm(self):
@@ -260,6 +376,8 @@ class Window(QMainWindow):
 
 
         print('wynik',self.numbers[-1])
+        self.textL = self.textL+"-"
+        self.resultlabel.setText(self.textL)
         # print(self.liczba)
         self.licznik = self.licznik + 1
 
@@ -289,6 +407,8 @@ class Window(QMainWindow):
         self.liczba = 0
 
         print('wynik', self.numbers[-1])
+        self.textL = self.textL+"+"
+        self.resultlabel.setText(self.textL)
         # print(self.liczba)
         self.licznik = self.licznik + 1
 
@@ -319,6 +439,8 @@ class Window(QMainWindow):
 
         print('wynik', self.numbers[-1])
         # print(self.liczba)
+        self.textL = self.textL+"*"
+        self.resultlabel.setText(self.textL)
         self.licznik = self.licznik + 1
 
     def on_clickdz(self):
@@ -348,6 +470,8 @@ class Window(QMainWindow):
 
         print('wynik = ', self.numbers[-1])
         # print(self.liczba)
+        self.textL = self.textL+"/"
+        self.resultlabel.setText(self.textL)
         self.licznik = self.licznik + 1
 
     def on_clickeq(self):
@@ -369,10 +493,23 @@ class Window(QMainWindow):
                 result = self.numbers[-1] / self.liczba
                 self.numbers.append(result)
         print('wynik = ', self.numbers[-1])
+        self.textL = self.textL+"="
+        self.resultlabel.setText(self.textL+(str)(self.numbers[-1]))
         self.liczba = 0
         self.numbers = []
         self.numbers.append(0)
         self.licznik = 0
+        self.textL = ""
+
+    def on_clickC(self):
+        self.liczba = 0
+        self.numbers = []
+        self.numbers.append(0)
+        self.licznik = 0
+        self.textL = ""
+        self.textL = self.textL+"0"
+        self.resultlabel.setText(self.textL)
+
 
     def close(self):
         choice = QMessageBox.question(self,'Extract',"Are you sure you want to quit?",QMessageBox.Yes|QMessageBox.No)
