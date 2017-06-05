@@ -12,8 +12,10 @@ class Window(QMainWindow):
     liczba = 0
     numbers = []
     flagNew = 0
+    numberorsign = 0 #1 number, 2 sign
     numbers.append(0)
     textL = ""
+
 
     # if flag == 1 then addition
     # if flag == 2 then substract
@@ -144,6 +146,7 @@ class Window(QMainWindow):
             self.btnmn.setFixedSize(80,80)
             self.btndz.setFixedSize(80,80)
             self.btneq.setFixedSize(80,80)
+            self.btnC.setFixedSize(80,80)
             self.enlargeButtonsCount = 1
             self.setGeometry(150, 150, 600, 600)
         else:
@@ -162,6 +165,7 @@ class Window(QMainWindow):
             self.btnmn.setFixedSize(40, 40)
             self.btndz.setFixedSize(40, 40)
             self.btneq.setFixedSize(40, 40)
+            self.btnC.setFixedSize(40, 40)
             self.enlargeButtonsCount = 0
             self.setGeometry(150, 150, 300, 300)
         # self.show()
@@ -298,6 +302,7 @@ class Window(QMainWindow):
         if self.licznik == 0:
             self.textL = (str)(self.liczba)
         self.resultlabel.setText(self.textL)
+        self.numberorsign = 1
         # self.licznik = self.licznik + 1
 
     def on_click1(self):
@@ -307,6 +312,7 @@ class Window(QMainWindow):
         if self.licznik == 0:
             self.textL = (str)(self.liczba)
         self.resultlabel.setText(self.textL)
+        self.numberorsign = 1
         # self.licznik = self.licznik + 1
 
     def on_click2(self):
@@ -316,6 +322,7 @@ class Window(QMainWindow):
         if self.licznik == 0:
             self.textL = (str)(self.liczba)
         self.resultlabel.setText(self.textL)
+        self.numberorsign = 1
 
     def on_click3(self):
 
@@ -325,6 +332,7 @@ class Window(QMainWindow):
         if self.licznik == 0:
             self.textL = (str)(self.liczba)
         self.resultlabel.setText(self.textL)
+        self.numberorsign = 1
         # self.licznik = self.licznik + 1
 
     def on_click4(self):
@@ -343,6 +351,7 @@ class Window(QMainWindow):
         if self.licznik == 0:
             self.textL = (str)(self.liczba)
         self.resultlabel.setText(self.textL)
+        self.numberorsign = 1
         # self.licznik = self.licznik + 1
 
     def on_click6(self):
@@ -352,6 +361,7 @@ class Window(QMainWindow):
         if self.licznik == 0:
             self.textL = (str)(self.liczba)
         self.resultlabel.setText(self.textL)
+        self.numberorsign = 1
         # self.licznik = self.licznik + 1
 
     def on_click7(self):
@@ -361,6 +371,7 @@ class Window(QMainWindow):
         if self.licznik == 0:
             self.textL = (str)(self.liczba)
         self.resultlabel.setText(self.textL)
+        self.numberorsign = 1
         # self.licznik = self.licznik + 1
 
     def on_click8(self):
@@ -370,6 +381,7 @@ class Window(QMainWindow):
         if self.licznik == 0:
             self.textL = (str)(self.liczba)
         self.resultlabel.setText(self.textL)
+        self.numberorsign = 1
         # self.licznik = self.licznik + 1
 
     def on_click9(self):
@@ -379,6 +391,7 @@ class Window(QMainWindow):
         if self.licznik == 0:
             self.textL = (str)(self.liczba)
         self.resultlabel.setText(self.textL)
+        self.numberorsign = 1
         # self.licznik = self.licznik + 1
 
     def on_clickm(self):
@@ -386,22 +399,30 @@ class Window(QMainWindow):
         self.flag = 2
         result = 0
         # first = self.numbers[-2]
-        if self.licznik == 0:
-            self.numbers.append(self.liczba)
+        if self.liczba!=0:
+            if self.licznik == 0:
+                self.numbers.append(self.liczba)
+        if self.numberorsign == 1:
+            if self.flagNew == 1:
+                result = self.numbers[-1] + self.liczba
+                self.numbers.append(result)
+            if self.flagNew == 2:
+                result = self.numbers[-1] - self.liczba
+                # print(self.numbers[-1],' - ',self.liczba,' = ',result)
+                self.numbers.append(result)
+            if self.flagNew == 3:
+                result = self.numbers[-1] * self.liczba
+                self.numbers.append(result)
+            if self.flagNew == 4:
+                if self.liczba!=0:
+                    result = self.numbers[-1] / self.liczba
+                    self.numbers.append(result)
+                else:
+                    self.resultlabel.setText("Nie dziel przez zero")
+                    self.liczba = 0
+                    return
 
-        if self.flagNew == 1:
-            result = self.numbers[-1] + self.liczba
-            self.numbers.append(result)
-        if self.flagNew == 2:
-            result = self.numbers[-1] - self.liczba
-            # print(self.numbers[-1],' - ',self.liczba,' = ',result)
-            self.numbers.append(result)
-        if self.flagNew == 3:
-            result = self.numbers[-1] * self.liczba
-            self.numbers.append(result)
-        if self.flagNew == 4:
-            result = self.numbers[-1] / self.liczba
-            self.numbers.append(result)
+        self.numberorsign = 2
 
         # self.numbers.append(self.liczba)
         self.liczba = 0
@@ -418,23 +439,31 @@ class Window(QMainWindow):
         self.flag = 1
         result = 0
         # first = self.numbers[-2]
-        if self.licznik == 0:
-            self.numbers.append(self.liczba)
+        if self.liczba!=0:
+            if self.licznik == 0:
+                self.numbers.append(self.liczba)
 
-        if self.flagNew == 1:
-            result = self.numbers[-1] + self.liczba
-            self.numbers.append(result)
-        if self.flagNew == 2:
-            result = self.numbers[-1] - self.liczba
-            print(self.numbers[-1], ' - ', self.liczba, ' = ', result)
-            self.numbers.append(result)
-        if self.flagNew == 3:
-            result = self.numbers[-1] * self.liczba
-            self.numbers.append(result)
-        if self.flagNew == 4:
-            result = self.numbers[-1] / self.liczba
-            self.numbers.append(result)
+        if self.numberorsign == 1:
+            if self.flagNew == 1:
+                result = self.numbers[-1] + self.liczba
+                self.numbers.append(result)
+            if self.flagNew == 2:
+                result = self.numbers[-1] - self.liczba
+                print(self.numbers[-1], ' - ', self.liczba, ' = ', result)
+                self.numbers.append(result)
+            if self.flagNew == 3:
+                result = self.numbers[-1] * self.liczba
+                self.numbers.append(result)
+            if self.flagNew == 4:
+                if self.liczba!=0:
+                    result = self.numbers[-1] / self.liczba
+                    self.numbers.append(result)
+                else:
+                    self.resultlabel.setText("Nie dziel przez zero")
+                    self.liczba = 0
+                    return
 
+        self.numberorsign = 2
         # self.numbers.append(self.liczba)
         self.liczba = 0
 
@@ -449,23 +478,32 @@ class Window(QMainWindow):
         self.flag = 3
         result = 0
         # first = self.numbers[-2]
-        if self.licznik == 0:
-            self.numbers.append(self.liczba)
+        if self.liczba!=0:
 
-        if self.flagNew == 1:
-            result = self.numbers[-1] + self.liczba
-            self.numbers.append(result)
-        if self.flagNew == 2:
-            result = self.numbers[-1] - self.liczba
-            # print(self.numbers[-1], ' - ', self.liczba, ' = ', result)
-            self.numbers.append(result)
-        if self.flagNew == 3:
-            result = self.numbers[-1] * self.liczba
-            self.numbers.append(result)
-        if self.flagNew == 4:
-            result = self.numbers[-1] / self.liczba
-            self.numbers.append(result)
+            if self.licznik == 0:
+                self.numbers.append(self.liczba)
 
+        if self.numberorsign == 1:
+            if self.flagNew == 1:
+                result = self.numbers[-1] + self.liczba
+                self.numbers.append(result)
+            if self.flagNew == 2:
+                result = self.numbers[-1] - self.liczba
+                # print(self.numbers[-1], ' - ', self.liczba, ' = ', result)
+                self.numbers.append(result)
+            if self.flagNew == 3:
+                result = self.numbers[-1] * self.liczba
+                self.numbers.append(result)
+            if self.flagNew == 4:
+                if self.liczba!=0:
+                    result = self.numbers[-1] / self.liczba
+                    self.numbers.append(result)
+                else:
+                    self.resultlabel.setText("Nie dziel przez zero")
+                    self.liczba = 0
+                    return
+
+        self.numberorsign = 2
         # self.numbers.append(self.liczba)
         self.liczba = 0
 
@@ -480,23 +518,30 @@ class Window(QMainWindow):
         self.flag = 4
         result = 0
         # first = self.numbers[-2]
-        if self.licznik == 0:
-            self.numbers.append(self.liczba)
+        if self.liczba!=0:
+            if self.licznik == 0:
+                self.numbers.append(self.liczba)
+        if self.numberorsign == 1:
+            if self.flagNew == 1:
+                result = self.numbers[-1] + self.liczba
+                self.numbers.append(result)
+            if self.flagNew == 2:
+                result = self.numbers[-1] - self.liczba
+                print(self.numbers[-1], ' - ', self.liczba, ' = ', result)
+                self.numbers.append(result)
+            if self.flagNew == 3:
+                result = self.numbers[-1] * self.liczba
+                self.numbers.append(result)
+            if self.flagNew == 4:
+                if self.liczba!=0:
+                    result = self.numbers[-1] / self.liczba
+                    self.numbers.append(result)
+                else:
+                    self.resultlabel.setText("Nie dziel przez zero")
+                    self.liczba = 0
+                    return
 
-        if self.flagNew == 1:
-            result = self.numbers[-1] + self.liczba
-            self.numbers.append(result)
-        if self.flagNew == 2:
-            result = self.numbers[-1] - self.liczba
-            print(self.numbers[-1], ' - ', self.liczba, ' = ', result)
-            self.numbers.append(result)
-        if self.flagNew == 3:
-            result = self.numbers[-1] * self.liczba
-            self.numbers.append(result)
-        if self.flagNew == 4:
-            result = self.numbers[-1] / self.liczba
-            self.numbers.append(result)
-
+        self.numberorsign = 2
         # self.numbers.append(self.liczba)
         self.liczba = 0
 
@@ -510,7 +555,7 @@ class Window(QMainWindow):
         self.flagNew = self.flag
         self.flag = 0
         result = 0
-        if self.liczba != 0:
+        if self.numberorsign == 1:
             if self.flagNew == 1:
                 result = self.numbers[-1] + self.liczba
                 self.numbers.append(result)
@@ -522,8 +567,17 @@ class Window(QMainWindow):
                 result = self.numbers[-1] * self.liczba
                 self.numbers.append(result)
             if self.flagNew == 4:
-                result = self.numbers[-1] / self.liczba
-                self.numbers.append(result)
+                if self.liczba != 0:
+                    result = self.numbers[-1] / self.liczba
+                    self.numbers.append(result)
+                else:
+                    self.resultlabel.setText("Nie dziel przez zero")
+                    self.liczba = 0
+                    self.numbers = []
+                    self.numbers.append(0)
+                    self.licznik = 0
+                    self.textL = ""
+                    return
         print('wynik = ', self.numbers[-1])
         self.textL = self.textL+"="
         self.resultlabel.setText(self.textL+(str)(self.numbers[-1]))
