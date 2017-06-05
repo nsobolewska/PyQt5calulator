@@ -614,6 +614,40 @@ class Window(QMainWindow):
         QCloseEvent.ignore()
         self.close()
 
+    def keyPressEvent(self, event):
+        if type(event) == QtGui.QKeyEvent and event.key() == QtCore.Qt.Key_0:
+            self.on_click0()
+        if type(event) == QtGui.QKeyEvent and event.key() == QtCore.Qt.Key_1:
+            self.on_click1()
+        if type(event) == QtGui.QKeyEvent and event.key() == QtCore.Qt.Key_2:
+            self.on_click2()
+        if type(event) == QtGui.QKeyEvent and event.key() == QtCore.Qt.Key_3:
+            self.on_click3()
+        if type(event) == QtGui.QKeyEvent and event.key() == QtCore.Qt.Key_4:
+            self.on_click4()
+        if type(event) == QtGui.QKeyEvent and event.key() == QtCore.Qt.Key_5:
+            self.on_click5()
+        if type(event) == QtGui.QKeyEvent and event.key() == QtCore.Qt.Key_6:
+            self.on_click6()
+        if type(event) == QtGui.QKeyEvent and event.key() == QtCore.Qt.Key_7:
+            self.on_click7()
+        if type(event) == QtGui.QKeyEvent and event.key() == QtCore.Qt.Key_8:
+            self.on_click8()
+        if type(event) == QtGui.QKeyEvent and event.key() == QtCore.Qt.Key_9:
+            self.on_click9()
+        if type(event) == QtGui.QKeyEvent and event.key() == QtCore.Qt.Key_Plus:
+            self.on_clickp()
+        if type(event) == QtGui.QKeyEvent and event.key() == QtCore.Qt.Key_Minus:
+            self.on_clickm()
+        if type(event) == QtGui.QKeyEvent and event.key() == QtCore.Qt.Key_Slash:
+            self.on_clickdz()
+        if type(event) == QtGui.QKeyEvent and event.key() == QtCore.Qt.Key_Asterisk:
+            self.on_clickmn()
+        if type(event) == QtGui.QKeyEvent and event.key() == QtCore.Qt.Key_Equal:
+            self.on_clickeq()
+        if type(event) == QtGui.QKeyEvent and event.key() == QtCore.Qt.Key_C:
+            self.on_clickC()
+
 def run():
 
     app = QApplication(sys.argv)
